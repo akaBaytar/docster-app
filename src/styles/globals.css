@@ -42,7 +42,7 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-  
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -86,5 +86,181 @@ body {
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2.5 h-2.5;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-border border-[1px] border-transparent border-solid bg-clip-padding;
+  }
+}
+
+.tiptap {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+    margin-top: 2.5rem;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2 {
+    margin-top: 3.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 1rem;
+  }
+
+  ul,
+  ol {
+    padding: 0 1rem;
+    margin: 1.25rem 1rem 1.25rem 0.4rem;
+  }
+
+  ul li {
+    list-style-type: disc;
+
+    p {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+    }
+  }
+
+  ol li {
+    list-style-type: decimal;
+
+    p {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+    }
+  }
+
+  ul[data-type='taskList'] {
+    list-style: none;
+    margin-left: 0;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+
+      > label {
+        flex: 0 0 auto;
+        user-select: none;
+        padding-top: 0.3rem;
+        margin-right: 0.5rem;
+      }
+
+      > div {
+        flex: 1 1 auto;
+      }
+    }
+
+    input[type='checkbox'] {
+      cursor: pointer;
+      accent-color: #f59e0b;
+    }
+
+    ul[data-type='taskList'] {
+      margin: 0;
+    }
+  }
+
+  img {
+    height: auto;
+    display: block;
+    max-width: 100%;
+    margin: 1.5rem 0;
+    border-radius: 0.25rem;
+
+    &.ProseMirror-selectednode {
+      outline: 1px solid #f59e0b;
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    margin: 0;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+
+    td,
+    th {
+      border: 1px solid #000;
+      box-sizing: border-box;
+      min-width: 1em;
+      padding: 6px 8px;
+      position: relative;
+      vertical-align: top;
+
+      > * {
+        margin-bottom: 0;
+      }
+    }
+
+    th {
+      background-color: #d1d5db;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .selectedCell:after {
+      background: #9ca3af;
+      content: '';
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: 2;
+    }
+
+    .column-resize-handle {
+      background-color: #f59e0b;
+      bottom: -2px;
+      pointer-events: none;
+      position: absolute;
+      right: -2px;
+      top: 0;
+      width: 4px;
+    }
+  }
+
+  .tableWrapper {
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  &.resize-cursor {
+    cursor: ew-resize;
+    cursor: col-resize;
   }
 }
