@@ -156,6 +156,15 @@ body {
     margin-top: 1rem;
   }
 
+  a {
+    color: #f59e0b;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   ul,
   ol {
     padding: 0 1rem;

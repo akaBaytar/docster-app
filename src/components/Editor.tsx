@@ -9,6 +9,7 @@ import FontFamily from '@tiptap/extension-font-family';
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
 
+import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 import ImageResize from 'tiptap-extension-resize-image';
 
@@ -35,6 +36,11 @@ const Editor = () => {
       FontFamily,
       TaskList,
       TaskItem.configure({ nested: true }),
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: 'https',
+      }),
       Image,
       ImageResize,
       Table,

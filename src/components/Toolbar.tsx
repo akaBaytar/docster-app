@@ -1,22 +1,28 @@
 'use client';
 
+import { useState } from 'react';
+
 import {
   BoldIcon,
-  ChevronDownIcon,
-  HighlighterIcon,
+  Link2Icon,
+  Undo2Icon,
+  Redo2Icon,
   ItalicIcon,
-  ListTodoIcon,
-  MessageSquarePlusIcon,
   PaletteIcon,
   PrinterIcon,
-  Redo2Icon,
-  RemoveFormattingIcon,
-  SpellCheckIcon,
+  ListTodoIcon,
   UnderlineIcon,
-  Undo2Icon,
+  SpellCheckIcon,
+  HighlighterIcon,
+  ChevronDownIcon,
+  RemoveFormattingIcon,
+  MessageSquarePlusIcon,
 } from 'lucide-react';
 
 import { CompactPicker } from 'react-color';
+
+import { Input } from '@/ui/input';
+import { Button } from '@/ui/button';
 
 import {
   DropdownMenu,
@@ -297,6 +303,48 @@ const Toolbar = () => {
     ],
   ];
 
+  const LinkButton = () => {
+    const { editor } = useEditorStore();
+
+    const [link, setLink] = useState(editor?.getAttributes('link').href || '');
+
+    const onChange = (href: string) => {
+      editor?.chain().focus().extendMarkRange('link').setLink({ href }).run();
+
+      setLink('');
+    };
+
+    return (
+      <DropdownMenu
+        onOpenChange={(open) => {
+          if (open) {
+            setLink(editor?.getAttributes('link').href || '');
+          }
+        }}>
+        <DropdownMenuTrigger asChild>
+          <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
+            <Link2Icon className='size-4 shrink-0' />
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className='p-2.5 flex items-center gap-2 bg-[#f1f4f9] rounded'>
+          <Input
+            placeholder='https://www.example.com'
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+            className='text-sm px-2 py-1 rounded'
+          />
+          <Button
+            size='icon'
+            variant='outline'
+            onClick={() => onChange(link)}
+            className='py-1 px-2 text-sm rounded bg-white'>
+            Apply
+          </Button>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  };
+
   return (
     <div className='flex items-center gap-0.5 px-2.5 py-0.5 overflow-x-auto min-h-[40px] rounded bg-[#f1f4f9] print:hidden'>
       {sections[0].map((item) => (
@@ -325,6 +373,11 @@ const Toolbar = () => {
       />
       <TextColorButton />
       <HighlightButton />
+      <Separator
+        orientation='vertical'
+        className='h-6 w-[1px] bg-neutral-300'
+      />
+      <LinkButton />
       <Separator
         orientation='vertical'
         className='h-6 w-[1px] bg-neutral-300'
