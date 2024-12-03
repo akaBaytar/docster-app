@@ -24,6 +24,8 @@ import {
   AlignCenterIcon,
   AlignRightIcon,
   AlignJustifyIcon,
+  ListIcon,
+  ListOrderedIcon,
 } from 'lucide-react';
 
 import { CompactPicker } from 'react-color';
@@ -412,6 +414,49 @@ const AlignButton = () => {
   );
 };
 
+const ListButton = () => {
+  const { editor } = useEditorStore();
+
+  const lists = [
+    {
+      label: 'Bullet List',
+      icon: ListIcon,
+      isActive: () => editor?.isActive('bulletList'),
+      onClick: () => editor?.chain().focus().toggleBulletList().run(),
+    },
+    {
+      label: 'Ordered List',
+      icon: ListOrderedIcon,
+      isActive: () => editor?.isActive('orderedList'),
+      onClick: () => editor?.chain().focus().toggleOrderedList().run(),
+    },
+  ];
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
+          <ListIcon className='size-4 shrink-0' />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className='p-1 flex flex-col gap-1 bg-[#f1f4f9] rounded'>
+        {lists.map(({ label, isActive, onClick, icon: Icon }) => (
+          <button
+            key={label}
+            onClick={onClick}
+            className={cn(
+              'flex items-center gap-1 px-2 py-1 rounded hover:bg-neutral-200/80',
+              isActive() && 'bg-neutral-200/80'
+            )}>
+            <Icon className='size-4' />
+            <span className='text-sm'>{label}</span>
+          </button>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 const Toolbar = () => {
   const { editor } = useEditorStore();
 
@@ -530,6 +575,7 @@ const Toolbar = () => {
         className='h-6 w-[1px] bg-neutral-300'
       />
       <AlignButton />
+      <ListButton />
       <Separator
         orientation='vertical'
         className='h-6 w-[1px] bg-neutral-300'
