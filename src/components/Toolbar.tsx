@@ -3,9 +3,11 @@
 import {
   BoldIcon,
   ChevronDownIcon,
+  HighlighterIcon,
   ItalicIcon,
   ListTodoIcon,
   MessageSquarePlusIcon,
+  PaletteIcon,
   PrinterIcon,
   Redo2Icon,
   RemoveFormattingIcon,
@@ -13,6 +15,8 @@ import {
   UnderlineIcon,
   Undo2Icon,
 } from 'lucide-react';
+
+import { CompactPicker } from 'react-color';
 
 import {
   DropdownMenu,
@@ -25,6 +29,7 @@ import { Separator } from '@/ui/separator';
 import { useEditorStore } from '@/store/useEditorStore';
 
 import type { LucideIcon } from 'lucide-react';
+import type { ColorResult } from 'react-color';
 import type { Level } from '@tiptap/extension-heading';
 
 type ButtonProps = {
@@ -157,6 +162,62 @@ const HeadingButton = () => {
   );
 };
 
+const TextColorButton = () => {
+  const { editor } = useEditorStore();
+
+  const value = editor?.getAttributes('textStyle').color || '#000000';
+
+  const onChange = (color: ColorResult) => {
+    editor?.chain().focus().setColor(color.hex).run();
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
+          <PaletteIcon className='size-4 shrink-0' />
+          <div className='h-0.5 w-full' style={{ backgroundColor: value }} />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className='p-2.5 bg-[#f1f4f9] rounded'>
+        <CompactPicker
+          color={value}
+          onChange={onChange}
+          className='rounded bg-[#f1f4f9]'
+        />
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+const HighlightButton = () => {
+  const { editor } = useEditorStore();
+
+  const value = editor?.getAttributes('highlight').color || '#ffffff';
+
+  const onChange = (color: ColorResult) => {
+    editor?.chain().focus().setHighlight({ color: color.hex }).run();
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
+          <HighlighterIcon className='size-4 shrink-0' />
+          <div className='h-0.5 w-full' style={{ backgroundColor: value }} />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className='p-2.5 bg-[#f1f4f9] rounded'>
+        <CompactPicker
+          color={value}
+          onChange={onChange}
+          className='rounded bg-[#f1f4f9]'
+        />
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 const Toolbar = () => {
   const { editor } = useEditorStore();
 
@@ -258,6 +319,12 @@ const Toolbar = () => {
       {sections[1].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
+      <Separator
+        orientation='vertical'
+        className='h-6 w-[1px] bg-neutral-300'
+      />
+      <TextColorButton />
+      <HighlightButton />
       <Separator
         orientation='vertical'
         className='h-6 w-[1px] bg-neutral-300'
