@@ -1,6 +1,7 @@
 'use client';
 
 import StarterKit from '@tiptap/starter-kit';
+import Underline from '@tiptap/extension-underline';
 
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
@@ -23,6 +24,7 @@ const Editor = () => {
   const editor = useEditor({
     extensions: [
       StarterKit,
+      Underline,
       TaskList,
       TaskItem.configure({ nested: true }),
       Image,
