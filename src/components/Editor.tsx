@@ -15,7 +15,11 @@ import TableHeader from '@tiptap/extension-table-header';
 
 import { useEditor, EditorContent } from '@tiptap/react';
 
+import { useEditorStore } from '@/store/useEditorStore';
+
 const Editor = () => {
+  const { setEditor } = useEditorStore();
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -35,6 +39,38 @@ const Editor = () => {
         class:
           'flex flex-col bg-white py-10 pe-14 cursor-text min-h-[1054px] w-[816px] border border-[#C7C7C7] rounded focus:outline-none print:border-0',
       },
+    },
+
+    onCreate({ editor }) {
+      setEditor(editor);
+    },
+
+    onUpdate({ editor }) {
+      setEditor(editor);
+    },
+
+    onSelectionUpdate({ editor }) {
+      setEditor(editor);
+    },
+
+    onTransaction({ editor }) {
+      setEditor(editor);
+    },
+
+    onFocus({ editor }) {
+      setEditor(editor);
+    },
+
+    onBlur({ editor }) {
+      setEditor(editor);
+    },
+
+    onContentError({ editor }) {
+      setEditor(editor);
+    },
+
+    onDestroy() {
+      setEditor(null);
     },
 
     immediatelyRender: false,
