@@ -17,6 +17,9 @@ import {
   ChevronDownIcon,
   RemoveFormattingIcon,
   MessageSquarePlusIcon,
+  ImageIcon,
+  UploadIcon,
+  SearchIcon,
 } from 'lucide-react';
 
 import { CompactPicker } from 'react-color';
@@ -27,8 +30,18 @@ import { Button } from '@/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/ui/dropdown-menu';
+
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+} from '@/ui/dialog';
 
 import { cn } from '@/utils';
 import { Separator } from '@/ui/separator';
@@ -345,6 +358,100 @@ const Toolbar = () => {
     );
   };
 
+  const ImageButton = () => {
+    const { editor } = useEditorStore();
+
+    const [url, setUrl] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
+
+    const onChange = (src: string) => {
+      editor?.chain().focus().setImage({ src }).run();
+    };
+
+    const onUpload = () => {
+      const input = document.createElement('input');
+
+      input.type = 'file';
+      input.accept = 'image/*';
+
+      input.onchange = (e) => {
+        const file = (e.target as HTMLInputElement).files?.[0];
+
+        if (file) {
+          const url = URL.createObjectURL(file);
+
+          onChange(url);
+        }
+      };
+
+      input.click();
+    };
+
+    const handleURLSubmit = () => {
+      if (url) {
+        onChange(url);
+        setUrl('');
+        setIsOpen(false);
+      }
+    };
+
+    return (
+      <>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
+              <ImageIcon className='size-4 shrink-0' />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className='p-2.5 flex flex-col items-center gap-2 bg-[#f1f4f9] rounded'>
+            <DropdownMenuItem
+              onClick={onUpload}
+              className='cursor-pointer w-full'>
+              <UploadIcon className='size-4' />
+              <span className='text-sm'>Upload</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => setIsOpen(true)}
+              className='cursor-pointer w-full'>
+              <SearchIcon className='size-4' />
+              <span className='text-sm'>Image URL</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogContent className='fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-[#f1f4f9] p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg'>
+            <DialogHeader>
+              <DialogTitle>Image URL</DialogTitle>
+              <DialogDescription className='text-xs opacity-50'>
+                You can paste any image link into this field.
+              </DialogDescription>
+            </DialogHeader>
+            <Input
+              value={url}
+              placeholder='https://www.example.com'
+              className='text-sm px-2 py-1 rounded'
+              onChange={(e) => setUrl(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleURLSubmit();
+                }
+              }}
+            />
+            <DialogFooter>
+              <Button
+                size='icon'
+                variant='outline'
+                onClick={handleURLSubmit}
+                className='py-1 px-2 text-sm rounded bg-white w-full'>
+                Apply
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </>
+    );
+  };
+
   return (
     <div className='flex items-center gap-0.5 px-2.5 py-0.5 overflow-x-auto min-h-[40px] rounded bg-[#f1f4f9] print:hidden'>
       {sections[0].map((item) => (
@@ -378,6 +485,7 @@ const Toolbar = () => {
         className='h-6 w-[1px] bg-neutral-300'
       />
       <LinkButton />
+      <ImageButton />
       <Separator
         orientation='vertical'
         className='h-6 w-[1px] bg-neutral-300'
