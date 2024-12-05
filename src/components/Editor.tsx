@@ -25,8 +25,9 @@ import TableHeader from '@tiptap/extension-table-header';
 import Color from '@tiptap/extension-color';
 import Highlight from '@tiptap/extension-highlight';
 
-import { useEditor, EditorContent } from '@tiptap/react';
+import Ruler from './Ruler';
 
+import { useEditor, EditorContent } from '@tiptap/react';
 import { useEditorStore } from '@/store/useEditorStore';
 
 const Editor = () => {
@@ -103,6 +104,7 @@ const Editor = () => {
 
   return (
     <div className='size-full overflow-x-auto px-4 bg-[#F9FBFD] print:p-0 print:bg-white print:overflow-visible'>
+      <Ruler />
       <div className='min-w-max flex justify-center py-4 mx-auto w-[816px] print:p-0 print:w-full print:min-w-0'>
         <EditorContent editor={editor} />
       </div>
