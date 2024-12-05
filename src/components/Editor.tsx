@@ -7,6 +7,8 @@ import TextAlign from '@tiptap/extension-text-align';
 import TextStyle from '@tiptap/extension-text-style';
 import FontFamily from '@tiptap/extension-font-family';
 
+import FontSize from '@/extensions/fontSize';
+
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
 
@@ -36,6 +38,7 @@ const Editor = () => {
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
       TextStyle,
       FontFamily,
+      FontSize,
       TaskList,
       TaskItem.configure({ nested: true }),
       Link.configure({

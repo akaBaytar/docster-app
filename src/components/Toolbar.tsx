@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import {
   BoldIcon,
@@ -26,6 +26,8 @@ import {
   AlignJustifyIcon,
   ListIcon,
   ListOrderedIcon,
+  MinusIcon,
+  PlusIcon,
 } from 'lucide-react';
 
 import { CompactPicker } from 'react-color';
@@ -314,7 +316,7 @@ const ImageButton = () => {
     input.click();
   };
 
-  const handleURLSubmit = () => {
+  const onURLSubmit = () => {
     if (url) {
       onChange(url);
       setUrl('');
@@ -360,7 +362,7 @@ const ImageButton = () => {
             onChange={(e) => setUrl(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-                handleURLSubmit();
+                onURLSubmit();
               }
             }}
           />
@@ -368,7 +370,7 @@ const ImageButton = () => {
             <Button
               size='icon'
               variant='outline'
-              onClick={handleURLSubmit}
+              onClick={onURLSubmit}
               className='py-1 px-2 text-sm rounded bg-white w-full'>
               Apply
             </Button>
@@ -455,6 +457,96 @@ const ListButton = () => {
       </DropdownMenuContent>
     </DropdownMenu>
   );
+};
+
+const FontSizeButton = () => {
+  const { editor } = useEditorStore();
+
+  const currentFontSize = editor?.getAttributes('textStyle').fontSize
+    ? editor?.getAttributes('textStyle').fontSize.replace('px', '')
+    : '16';
+
+  const [fontSize, setFontSize] = useState(currentFontSize);
+  const [inputValue, setInputValue] = useState(fontSize);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const updateFontSize = (newSize: string) => {
+    const size = parseInt(newSize);
+
+    if (!isNaN(size) && size > 0) {
+      editor?.chain().focus().setFontSize(`${size}px`).run();
+
+      setInputValue(newSize);
+      setFontSize(newSize);
+      setIsEditing(false);
+    }
+  };
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const onInputBlur = () => updateFontSize(inputValue);
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+
+      updateFontSize(inputValue);
+
+      editor?.commands.focus();
+    }
+  };
+
+  const increment = () => {
+    const newSize = parseInt(fontSize) + 1;
+
+    updateFontSize(newSize.toString());
+  };
+
+  const decrement = () => {
+    const newSize = parseInt(fontSize) - 1;
+
+    if (newSize > 0) updateFontSize(newSize.toString());
+  };
+
+  return (
+    <div className='flex items-center gap-0.5'>
+      <button
+        onClick={decrement}
+        className='h-7 w-7 shrink-0 flex items-center justify-center rounded hover:bg-neutral-200/80'>
+        <MinusIcon className='size-4' />
+      </button>
+      {isEditing ? (
+        <input
+          type='text'
+          value={inputValue}
+          onChange={onInputChange}
+          onBlur={onInputBlur}
+          onKeyDown={onKeyDown}
+          className='h-7 w-8 text-sm text-center border border-neutral-300 rounded bg-transparent focus-visible:outline-none focus-visible:ring-0'
+        />
+      ) : (
+        <button
+          onClick={() => {
+            setIsEditing(true);
+            setFontSize(currentFontSize);
+          }}
+          className='h-7 w-8 text-sm text-center border border-neutral-300 rounded bg-transparent cursor-text'>
+          {currentFontSize}
+        </button>
+      )}
+      <button
+        onClick={increment}
+        className='h-7 w-7 shrink-0 flex items-center justify-center rounded hover:bg-neutral-200/80'>
+        <PlusIcon className='size-4' />
+      </button>
+    </div>
+  );
+};
+
+const LineHeightButton = () => {
+  return <div>LH</div>;
 };
 
 const Toolbar = () => {
@@ -555,6 +647,11 @@ const Toolbar = () => {
         orientation='vertical'
         className='h-6 w-[1px] bg-neutral-300'
       />
+      <FontSizeButton />
+      <Separator
+        orientation='vertical'
+        className='h-6 w-[1px] bg-neutral-300'
+      />
       {sections[1].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
@@ -575,6 +672,7 @@ const Toolbar = () => {
         className='h-6 w-[1px] bg-neutral-300'
       />
       <AlignButton />
+      <LineHeightButton />
       <ListButton />
       <Separator
         orientation='vertical'
