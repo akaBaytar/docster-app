@@ -8,6 +8,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import FontFamily from '@tiptap/extension-font-family';
 
 import FontSize from '@/extensions/fontSize';
+import LineHeight from '@/extensions/lineHeight';
 
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
@@ -39,6 +40,7 @@ const Editor = () => {
       TextStyle,
       FontFamily,
       FontSize,
+      LineHeight.configure({ types: ['heading', 'paragraph'] }),
       TaskList,
       TaskItem.configure({ nested: true }),
       Link.configure({

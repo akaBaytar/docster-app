@@ -3,31 +3,32 @@
 import React, { useState } from 'react';
 
 import {
+  PlusIcon,
+  ListIcon,
   BoldIcon,
+  MinusIcon,
+  ImageIcon,
   Link2Icon,
   Undo2Icon,
   Redo2Icon,
+  UploadIcon,
+  SearchIcon,
   ItalicIcon,
   PaletteIcon,
   PrinterIcon,
   ListTodoIcon,
   UnderlineIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
   SpellCheckIcon,
   HighlighterIcon,
+  ListOrderedIcon,
+  AlignCenterIcon,
   ChevronDownIcon,
+  AlignJustifyIcon,
   RemoveFormattingIcon,
   MessageSquarePlusIcon,
-  ImageIcon,
-  UploadIcon,
-  SearchIcon,
-  AlignLeftIcon,
-  AlignCenterIcon,
-  AlignRightIcon,
-  AlignJustifyIcon,
-  ListIcon,
-  ListOrderedIcon,
-  MinusIcon,
-  PlusIcon,
+  AlignVerticalSpaceAroundIcon,
 } from 'lucide-react';
 
 import { CompactPicker } from 'react-color';
@@ -60,14 +61,21 @@ import type { ColorResult } from 'react-color';
 import type { Level } from '@tiptap/extension-heading';
 
 type ButtonProps = {
-  isActive?: boolean;
+  label?: string;
   icon: LucideIcon;
+  isActive?: boolean;
   onClick?: () => void;
 };
 
-const ToolbarButton = ({ icon: Icon, isActive, onClick }: ButtonProps) => {
+const ToolbarButton = ({
+  label,
+  icon: Icon,
+  isActive,
+  onClick,
+}: ButtonProps) => {
   return (
     <button
+      title={label}
       onClick={onClick}
       className={cn(
         'flex items-center justify-center rounded-sm text-sm h-7 min-w-7 hover:bg-neutral-200/80',
@@ -200,7 +208,7 @@ const TextColorButton = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild title='Text Color'>
         <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
           <PaletteIcon className='size-4 shrink-0' />
           <div className='h-0.5 w-full' style={{ backgroundColor: value }} />
@@ -228,7 +236,7 @@ const HighlightButton = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild title='Highlight Color'>
         <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
           <HighlighterIcon className='size-4 shrink-0' />
           <div className='h-0.5 w-full' style={{ backgroundColor: value }} />
@@ -263,7 +271,7 @@ const LinkButton = () => {
           setLink(editor?.getAttributes('link').href || '');
         }
       }}>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild title='Add Link'>
         <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
           <Link2Icon className='size-4 shrink-0' />
         </button>
@@ -327,7 +335,7 @@ const ImageButton = () => {
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger asChild title='Add Image'>
           <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
             <ImageIcon className='size-4 shrink-0' />
           </button>
@@ -393,7 +401,7 @@ const AlignButton = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild title='Text Alignment'>
         <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
           <AlignLeftIcon className='size-4 shrink-0' />
         </button>
@@ -436,7 +444,7 @@ const ListButton = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild title='Add List'>
         <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
           <ListIcon className='size-4 shrink-0' />
         </button>
@@ -513,6 +521,7 @@ const FontSizeButton = () => {
   return (
     <div className='flex items-center gap-0.5'>
       <button
+        title='Decrease Font Size'
         onClick={decrement}
         className='h-7 w-7 shrink-0 flex items-center justify-center rounded hover:bg-neutral-200/80'>
         <MinusIcon className='size-4' />
@@ -537,6 +546,7 @@ const FontSizeButton = () => {
         </button>
       )}
       <button
+        title='Increase Font Size'
         onClick={increment}
         className='h-7 w-7 shrink-0 flex items-center justify-center rounded hover:bg-neutral-200/80'>
         <PlusIcon className='size-4' />
@@ -546,7 +556,42 @@ const FontSizeButton = () => {
 };
 
 const LineHeightButton = () => {
-  return <div>LH</div>;
+  const { editor } = useEditorStore();
+
+  const lineHeights = [
+    { label: 'Normal', value: 'normal' },
+    { label: '1.00', value: '1' },
+    { label: '1.25', value: '1.25' },
+    { label: '1.50', value: '1.5' },
+    { label: '1.75', value: '1.75' },
+    { label: '2.00', value: '2' },
+    { label: '2.50', value: '2.5' },
+    { label: '3.00', value: '3' },
+  ];
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild title='Line Height'>
+        <button className='h-7 w-7 shrink-0 px-1.5 text-sm overflow-hidden flex flex-col items-center justify-center gap-0.5 rounded hover:bg-neutral-200/80'>
+          <AlignVerticalSpaceAroundIcon className='size-4 shrink-0' />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className='p-1 flex flex-col gap-1 bg-[#f1f4f9] rounded'>
+        {lineHeights.map(({ label, value }) => (
+          <button
+            key={value}
+            onClick={() => editor?.chain().focus().setLineHeight(value).run()}
+            className={cn(
+              'flex items-center gap-1 px-2 py-1 rounded hover:bg-neutral-200/80',
+              editor?.getAttributes('paragraph').lineHeight === value &&
+                'bg-neutral-200/80'
+            )}>
+            <span className='text-sm'>{label}</span>
+          </button>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 };
 
 const Toolbar = () => {
