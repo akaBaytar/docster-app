@@ -40,7 +40,7 @@ import {
   MenubarSubTrigger,
 } from '@/ui/menubar';
 
-import DocumentInput from './DocumentInput';
+import DocumentInput from '@/components/documents/DocumentInput';
 
 import { useEditorStore } from '@/store/useEditorStore';
 

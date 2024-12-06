@@ -1,7 +1,14 @@
+import { Poppins } from 'next/font/google';
+
 import '../styles/globals.css';
 
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
+
+const poppins = Poppins({
+  subsets: ['latin-ext'],
+  weight: ['300', '400', '500', '600', '700'],
+});
 
 export const metadata: Metadata = {
   title: 'Docster - Collaborate and Create Documents Effortlessly',
@@ -14,7 +21,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang='en'>
-      <body className='antialiased'>{children}</body>
+      <body className={`${poppins.className} antialiased`}>{children}</body>
     </html>
   );
 };

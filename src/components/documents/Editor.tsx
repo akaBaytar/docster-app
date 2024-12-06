@@ -25,7 +25,7 @@ import TableHeader from '@tiptap/extension-table-header';
 import Color from '@tiptap/extension-color';
 import Highlight from '@tiptap/extension-highlight';
 
-import Ruler from './Ruler';
+import Ruler from '@/components/documents/Ruler';
 
 import { useEditor, EditorContent } from '@tiptap/react';
 import { useEditorStore } from '@/store/useEditorStore';

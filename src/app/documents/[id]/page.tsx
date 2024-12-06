@@ -1,6 +1,6 @@
-import Editor from '@/components/Editor';
-import Navbar from '@/components/Navbar';
-import Toolbar from '@/components/Toolbar';
+import Editor from '@/components/documents/Editor';
+import Navbar from '@/components/documents/Navbar';
+import Toolbar from '@/components/documents/Toolbar';
 
 const DocumentPage = () => {
   return (
