@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useRef, useState } from 'react';
@@ -7,10 +8,19 @@ import { SearchIcon, XIcon } from 'lucide-react';
 import { Input } from '@/ui/input';
 import { Button } from '@/ui/button';
 
+import { useSearchParam } from '@/hooks/use-search-param';
+
 const SearchInput = () => {
   const [value, setValue] = useState('');
+  const [search, setSearch] = useSearchParam('search');
 
   const input = useRef<HTMLInputElement>(null);
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSearch(value);
+    input.current?.blur();
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -18,13 +28,13 @@ const SearchInput = () => {
 
   const onClear = () => {
     setValue('');
-
+    setSearch('');
     input.current?.blur();
   };
 
   return (
     <div className='flex flex-1 items-center justify-center'>
-      <form className='relative w-full max-w-[720px]'>
+      <form onSubmit={onSubmit} className='relative w-full max-w-[720px]'>
         <Input
           ref={input}
           value={value}

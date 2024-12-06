@@ -1,5 +1,7 @@
 import { Poppins } from 'next/font/google';
 
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+
 import '../styles/globals.css';
 
 import type { ReactNode } from 'react';
@@ -21,7 +23,9 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang='en'>
-      <body className={`${poppins.className} antialiased`}>{children}</body>
+      <body className={`${poppins.className} antialiased`}>
+        <NuqsAdapter>{children}</NuqsAdapter>
+      </body>
     </html>
   );
 };
