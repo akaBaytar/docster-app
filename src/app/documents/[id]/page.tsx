@@ -9,7 +9,7 @@ const DocumentPage = () => {
         <Navbar />
         <Toolbar />
       </div>
-      <div className='pt-[114px] print:pt-0'>
+      <div className='pt-[120px] print:pt-0'>
         <Editor />
       </div>
     </div>

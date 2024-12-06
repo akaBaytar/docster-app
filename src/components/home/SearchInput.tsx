@@ -40,7 +40,7 @@ const SearchInput = () => {
           value={value}
           onChange={onChange}
           placeholder='Search...'
-          className='px-9 w-full h-[36px] border-none rounded-full text-sm bg-[#f0f4f8] md:text-base focus-visible:ring-0 focus:bg-white focus-visible:shadow-[0_1px_1px_0_rgba(65,69,73,.3),0_1px_3px_1px_rgba(65,69,73,.15)]'
+          className='px-12 w-full h-[36px] border-none rounded-full text-sm bg-[#f0f4f8] md:text-base focus-visible:ring-0 focus:bg-white focus-visible:shadow-[0_1px_1px_0_rgba(65,69,73,.3),0_1px_3px_1px_rgba(65,69,73,.15)]'
         />
         <Button
           type='submit'

@@ -162,12 +162,12 @@ const HeadingButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className='h-7 w-[172px] shrink-0 px-1.5 text-sm overflow-hidden flex items-center justify-between rounded hover:bg-neutral-200/80'>
+        <button className='h-7 w-[181px] shrink-0 px-1.5 text-sm overflow-hidden flex items-center justify-between rounded hover:bg-neutral-200/80'>
           <span className='truncate'>{getCurrentHeading()}</span>
           <ChevronDownIcon className='ms-2 size-4 shrink-0' />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='p-1 flex flex-col gap-1 w-[172px] bg-[#f1f4f9] rounded'>
+      <DropdownMenuContent className='p-1 flex flex-col gap-1 w-[181px] bg-[#f1f4f9] rounded'>
         {headings.map(({ label, value, fontSize }) => (
           <button
             key={value}
