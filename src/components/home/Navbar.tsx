@@ -20,7 +20,7 @@ const Navbar = () => {
         </Link>
       </div>
       <SearchInput />
-      <User2Icon className='rounded-full bg-amber-500 p-1.5 ms-6 h-[36px] w-[36px]' />
+      <User2Icon className='rounded-full text-white bg-amber-500 p-1.5 ms-6 h-[36px] w-[36px]' />
     </nav>
   );
 };

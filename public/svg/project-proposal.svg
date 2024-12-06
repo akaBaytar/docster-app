@@ -8,12 +8,12 @@
     <path d="M0 0 L450 0 L450 250 L0 250 Z" fill="#80CBC4"/>
     <path d="M0 50 L200 50 L350 200 L0 200 Z" fill="#E8C59C" transform="rotate(-10)"/>
     <path d="M100 100 L450 100 L450 250 L100 250 Z" fill="#4DB6AC" transform="rotate(-10)"/>
-    <path d="M-50 150 L100 150 L100 200 L-50 200 Z" fill="#FF5722" transform="rotate(-10)"/>
+    <path d="M-50 150 L100 150 L100 200 L-50 200 Z" fill="#f59e0b" transform="rotate(-10)"/>
     <path d="M350 180 L450 180 L450 230 L350 230 Z" fill="#5D4037" transform="rotate(-10)"/>
   </g>
 
   <!-- Project Title -->
-  <text x="50" y="300" font-family="Arial, sans-serif" font-size="24" fill="#5D4037" font-weight="bold">
+  <text x="50" y="300" font-family="Arial, sans-serif" font-size="24" fill="#f59e0b" font-weight="bold">
     Project Name
   </text>
   

@@ -4,7 +4,7 @@
   
   <!-- Header -->
   <text x="40" y="40" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Your Band</text>
-  <text x="40" y="60" font-family="Arial, sans-serif" font-size="11" fill="#ff4444">September 24, 20XX</text>
+  <text x="40" y="60" font-family="Arial, sans-serif" font-size="11" fill="#f59e0b">September 24, 20XX</text>
   
   <!-- Greeting -->
   <text x="40" y="100" font-family="Arial, sans-serif" font-size="22">Hello fan,</text>
