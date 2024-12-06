@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 517">
+  <!-- Background -->
+  <rect width="400" height="517" fill="#f0f0f5"/>
+  
+  <!-- Header -->
+  <text x="40" y="40" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f59e0b">Special Event</text>
+  
+  <!-- Subheader -->
+  <text x="40" y="70" font-family="Arial, sans-serif" font-size="12" fill="#444">Don't Miss Out!</text>
+  
+  <!-- Date -->
+  <rect x="40" y="100" width="320" height="30" fill="#f59e0b10" rx="5"/>
+  <text x="200" y="120" font-family="Arial, sans-serif" font-size="12" fill="#f59e0b" text-anchor="middle">October 10, 20XX</text>
+</svg>

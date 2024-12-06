@@ -20,7 +20,7 @@ const TemplateGallery = () => {
       <div className='max-w-screen-lg mx-auto px-16 py-6 flex flex-col gap-4'>
         <h3 className='text-lg'>Start a new document</h3>
         <Carousel>
-          <CarouselPrevious className='absolute grid h-8 w-8 rounded-full -left-12 top-1/2 -translate-y-1/2 cursor-pointer hover:bg-neutral-200 xl:hidden' />
+          <CarouselPrevious className='absolute grid h-8 w-8 rounded-full -left-12 top-1/2 -translate-y-1/2 cursor-pointer hover:bg-neutral-200' />
           <CarouselContent className='-ms-4'>
             {templates.map((template) => (
               <CarouselItem
@@ -49,7 +49,7 @@ const TemplateGallery = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselNext className='absolute grid h-8 w-8 rounded-full -right-12 top-1/2 -translate-y-1/2 cursor-pointer hover:bg-neutral-200 xl:hidden' />
+          <CarouselNext className='absolute grid h-8 w-8 rounded-full -right-12 top-1/2 -translate-y-1/2 cursor-pointer hover:bg-neutral-200' />
         </Carousel>
       </div>
     </div>

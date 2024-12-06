@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 517">
+  <!-- White Background -->
+  <rect width="400" height="517" fill="white"/>
+  
+  <!-- Header -->
+  <text x="40" y="40" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">INVOICE</text>
+  <line x1="40" y1="45" x2="360" y2="45" stroke="#333" stroke-width="1"/>
+  
+  <!-- Company Details -->
+  <text x="40" y="70" font-family="Arial, sans-serif" font-size="10" fill="#555">Your Company Name</text>
+  <text x="40" y="85" font-family="Arial, sans-serif" font-size="10" fill="#555">123 Main Street</text>
+  <text x="40" y="100" font-family="Arial, sans-serif" font-size="10" fill="#555">City, State ZIP</text>
+  
+  <!-- Invoice Details -->
+  <rect x="40" y="130" width="320" height="20" fill="#f0f0f0"/>
+  <text x="50" y="145" font-family="Arial, sans-serif" font-size="10" fill="#333">Invoice #12345</text>
+  
+  <text x="40" y="180" font-family="Arial, sans-serif" font-size="10" fill="#333">Date:</text>
+  <text x="120" y="180" font-family="Arial, sans-serif" font-size="10" fill="#333">Sept 30, 20XX</text>
+  
+  <!-- Items Table -->
+  <line x1="40" y1="210" x2="360" y2="210" stroke="#ccc" stroke-width="1"/>
+  <text x="40" y="225" font-family="Arial, sans-serif" font-size="10" fill="#555">Description</text>
+  <text x="300" y="225" font-family="Arial, sans-serif" font-size="10" fill="#555">Amount</text>
+  
+  <line x1="40" y1="240" x2="360" y2="240" stroke="#ccc" stroke-width="1"/>
+  
+  <!-- Totals -->
+  <text x="250" y="400" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333">Total:</text>
+  <text x="300" y="400" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333">$1,234.56</text>
+</svg>

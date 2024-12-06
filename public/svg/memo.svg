@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 517">
+  <!-- Background -->
+  <rect width="400" height="517" fill="#fffdf0"/>
+  
+  <!-- Header -->
+  <text x="40" y="40" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#444">MEMORANDUM</text>
+  <line x1="40" y1="45" x2="360" y2="45" stroke="#444" stroke-width="1"/>
+  
+  <!-- To -->
+  <text x="40" y="80" font-family="Arial, sans-serif" font-size="10" fill="#333">To:</text>
+  <text x="80" y="80" font-family="Arial, sans-serif" font-size="10" fill="#555">All Staff</text>
+  
+  <!-- From -->
+  <text x="40" y="100" font-family="Arial, sans-serif" font-size="10" fill="#333">From:</text>
+  <text x="80" y="100" font-family="Arial, sans-serif" font-size="10" fill="#555">HR Department</text>
+</svg>

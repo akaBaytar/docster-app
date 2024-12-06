@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 517">
+  <!-- Background -->
+  <rect width="400" height="517" fill="white"/>
+  
+  <!-- Header -->
+  <text x="40" y="40" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#222">Meeting Agenda</text>
+  <line x1="40" y1="45" x2="360" y2="45" stroke="#222" stroke-width="1"/>
+  
+  <!-- Time -->
+  <text x="40" y="80" font-family="Arial, sans-serif" font-size="10" fill="#555">Date: Sept 30, 20XX</text>
+  <text x="40" y="100" font-family="Arial, sans-serif" font-size="10" fill="#555">Time: 10:00 AM</text>
+</svg>
