@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { User2Icon } from 'lucide-react';
+import { UserButton } from '@clerk/nextjs';
 
 import SearchInput from './SearchInput';
 
@@ -9,7 +9,9 @@ const Navbar = () => {
   return (
     <nav className='flex items-center justify-between h-full w-full'>
       <div className='flex gap-3 items-center shrink-0 pe-6'>
-        <Link href='/' className='flex items-center gap-1 bg-amber-500 rounded-full px-2'>
+        <Link
+          href='/'
+          className='flex items-center gap-1 bg-amber-500 rounded-full px-2'>
           <Image
             src='/logo.png'
             alt='Homepage - Docster Logo'
@@ -20,7 +22,9 @@ const Navbar = () => {
         </Link>
       </div>
       <SearchInput />
-      <User2Icon className='rounded-full text-white bg-amber-500 p-1.5 ms-6 h-[36px] w-[36px]' />
+      <div className='ms-6 flex items-center justify-center rounded-full w-[36px] h-[36px] bg-amber-500'>
+        <UserButton />
+      </div>
     </nav>
   );
 };
