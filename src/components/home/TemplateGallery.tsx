@@ -33,7 +33,7 @@ const TemplateGallery = () => {
 
   return (
     <div className='bg-neutral-50'>
-      <div className='max-w-screen-lg mx-auto px-16 pt-16 pb-6 flex flex-col gap-4'>
+      <div className='max-w-screen-lg mx-auto px-12 pt-16 pb-6 flex flex-col gap-4'>
         <Accordion type='single' collapsible>
           <AccordionItem value='documents'>
             <AccordionTrigger >
