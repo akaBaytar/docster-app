@@ -152,7 +152,7 @@ const DocumentsTable = ({ documents, status, loadMore }: TableProps) => {
           variant='ghost'
           disabled={status !== 'CanLoadMore'}
           onClick={() => loadMore(5)}
-          className='bg-neutral-100 hover:bg-neutral-200 p-2 rounded-sm disabled:bg-transparent transition-colors duration-200'>
+          className='bg-neutral-100 hover:bg-neutral-200 p-2 rounded-sm disabled:bg-transparent transition-colors duration-200 disabled:text-gray-500 disabled:font-light'>
           {status === 'CanLoadMore' ? 'Load More Documents' : 'End of results.'}
         </Button>
       </div>

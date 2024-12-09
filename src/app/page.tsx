@@ -7,10 +7,14 @@ import Navbar from '@/components/home/Navbar';
 import DocumentsTable from '@/components/home/DocumentsTable';
 import TemplateGallery from '@/components/home/TemplateGallery';
 
+import { useSearchParam } from '@/hooks/use-search-param';
+
 const HomePage = () => {
+  const [search] = useSearchParam('search');
+
   const { results, status, loadMore } = usePaginatedQuery(
     api.documents.get,
-    {},
+    { search },
     { initialNumItems: 6 }
   );
 
@@ -21,7 +25,11 @@ const HomePage = () => {
       </div>
       <div className='mt-16'>
         <TemplateGallery />
-        <DocumentsTable documents={results} loadMore={loadMore} status={status}/>
+        <DocumentsTable
+          documents={results}
+          loadMore={loadMore}
+          status={status}
+        />
       </div>
     </div>
   );
