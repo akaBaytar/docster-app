@@ -1,12 +1,16 @@
+import { useRouter } from 'next/navigation';
+
 import { format } from 'date-fns';
 import { SiGoogledocs } from 'react-icons/si';
 
 import {
   Building2Icon,
   CircleUserIcon,
+  EditIcon,
   ExternalLinkIcon,
   Loader2Icon,
   MoreVertical,
+  TrashIcon,
 } from 'lucide-react';
 
 import {
@@ -27,6 +31,9 @@ import {
 
 import { Button } from '@/ui/button';
 
+import RemoveDialog from '../layout/RemoveDialog';
+import RenameDialog from '../layout/RenameDialog';
+
 import type { PaginationStatus } from 'convex/react';
 import type { Doc } from '../../../convex/_generated/dataModel';
 
@@ -37,9 +44,7 @@ type TableProps = {
 };
 
 const DocumentsTable = ({ documents, status, loadMore }: TableProps) => {
-  const onClick = (id: string) => {
-    window.open(`/documents/${id}`, '_blank');
-  };
+  const router = useRouter();
 
   return (
     <div className='max-w-screen-lg mx-auto px-12 py-6 flex flex-col gap-6'>
@@ -50,7 +55,7 @@ const DocumentsTable = ({ documents, status, loadMore }: TableProps) => {
       ) : (
         <Table>
           <TableHeader>
-            <TableRow className='border-none hover:bg-transparent'>
+            <TableRow className='hover:bg-transparent'>
               <TableHead className='text-start'>Name</TableHead>
               <TableHead>&nbsp;</TableHead>
               <TableHead className='text-start hidden md:table-cell'>
@@ -64,7 +69,9 @@ const DocumentsTable = ({ documents, status, loadMore }: TableProps) => {
           {documents.length === 0 ? (
             <TableBody>
               <TableRow className='border-none hover:bg-transparent'>
-                <TableCell colSpan={4} className='text-muted-foreground'>
+                <TableCell
+                  colSpan={4}
+                  className='text-xs text-muted-foreground bg-neutral-100'>
                   No documents found.
                 </TableCell>
               </TableRow>
@@ -74,6 +81,7 @@ const DocumentsTable = ({ documents, status, loadMore }: TableProps) => {
               {documents.map((doc) => (
                 <TableRow
                   key={doc._id}
+                  onClick={() => router.push(`/documents/${doc._id}`)}
                   className='cursor-pointer hover:bg-neutral-100 transition-colors duration-200'>
                   <TableCell className='flex items-center gap-1'>
                     <SiGoogledocs className='size-4 fill-amber-500' />
@@ -101,13 +109,34 @@ const DocumentsTable = ({ documents, status, loadMore }: TableProps) => {
                       <DropdownMenuContent
                         align='end'
                         alignOffset={5}
-                        className='bg-neutral-100 cursor-pointer rounded-sm mt-1.5'>
+                        className='bg-neutral-50 cursor-pointer rounded-sm mt-1.5'>
                         <DropdownMenuItem
-                          onClick={() => onClick(doc._id)}
-                          className='hover:bg-neutral-200 text-xs px-2 py-1'>
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(`/documents/${doc._id}`, '_blank');
+                          }}
+                          className='hover:bg-white text-xs p-2'>
                           <ExternalLinkIcon className='size-4' />
                           Open in a new tab
                         </DropdownMenuItem>
+                        <RenameDialog id={doc._id} initialTitle={doc.title}>
+                          <DropdownMenuItem
+                            onClick={(e) => e.stopPropagation()}
+                            onSelect={(e) => e.preventDefault()}
+                            className='hover:bg-white text-xs p-2'>
+                            <EditIcon className='size-4' />
+                            Rename
+                          </DropdownMenuItem>
+                        </RenameDialog>
+                        <RemoveDialog id={doc._id}>
+                          <DropdownMenuItem
+                            onClick={(e) => e.stopPropagation()}
+                            onSelect={(e) => e.preventDefault()}
+                            className='hover:bg-white text-xs p-2'>
+                            <TrashIcon className='size-4' />
+                            Remove
+                          </DropdownMenuItem>
+                        </RemoveDialog>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -117,6 +146,16 @@ const DocumentsTable = ({ documents, status, loadMore }: TableProps) => {
           )}
         </Table>
       )}
+      <div className='flex items-center justify-center'>
+        <Button
+          size='sm'
+          variant='ghost'
+          disabled={status !== 'CanLoadMore'}
+          onClick={() => loadMore(5)}
+          className='bg-neutral-100 hover:bg-neutral-200 p-2 rounded-sm disabled:bg-transparent transition-colors duration-200'>
+          {status === 'CanLoadMore' ? 'Load More Documents' : 'End of results.'}
+        </Button>
+      </div>
     </div>
   );
 };
