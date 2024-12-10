@@ -6,6 +6,8 @@ import { Toaster } from '@/ui/sonner';
 import ConvexClientProvider from '@/providers/ConvexClientProvider';
 
 import '../styles/globals.css';
+import '@liveblocks/react-ui/styles.css';
+import '@liveblocks/react-tiptap/styles.css';
 
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';

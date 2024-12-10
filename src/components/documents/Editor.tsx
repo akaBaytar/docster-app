@@ -25,17 +25,22 @@ import TableHeader from '@tiptap/extension-table-header';
 import Color from '@tiptap/extension-color';
 import Highlight from '@tiptap/extension-highlight';
 
+import Threads from './Threads';
 import Ruler from '@/components/documents/Ruler';
 
 import { useEditor, EditorContent } from '@tiptap/react';
 import { useEditorStore } from '@/store/useEditorStore';
 
+import { useLiveblocksExtension } from '@liveblocks/react-tiptap';
+
 const Editor = () => {
   const { setEditor } = useEditorStore();
 
+  const liveblocks = useLiveblocksExtension();
+
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({ history: false }),
       Underline,
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
       TextStyle,
@@ -57,6 +62,7 @@ const Editor = () => {
       TableRow,
       Color,
       Highlight.configure({ multicolor: true }),
+      liveblocks,
     ],
 
     editorProps: {
@@ -107,6 +113,7 @@ const Editor = () => {
       <Ruler />
       <div className='min-w-max flex justify-center py-4 mx-auto w-[816px] print:p-0 print:w-full print:min-w-0'>
         <EditorContent editor={editor} />
+        <Threads editor={editor} />
       </div>
     </div>
   );

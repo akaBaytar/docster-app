@@ -1,3 +1,5 @@
+import Room from '@/components/layout/Room';
+
 import Editor from '@/components/documents/Editor';
 import Navbar from '@/components/documents/Navbar';
 import Toolbar from '@/components/documents/Toolbar';
@@ -10,7 +12,9 @@ const DocumentPage = () => {
         <Toolbar />
       </div>
       <div className='pt-[120px] print:pt-0'>
-        <Editor />
+        <Room>
+          <Editor />
+        </Room>
       </div>
     </div>
   );
