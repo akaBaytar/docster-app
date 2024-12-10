@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { UserButton } from '@clerk/nextjs';
+import { UserButton, OrganizationSwitcher } from '@clerk/nextjs';
 
 import SearchInput from './SearchInput';
 
@@ -18,11 +18,17 @@ const Navbar = () => {
             width={36}
             height={36}
           />
-          <h1 className='font-medium text-white'>Docster</h1>
+          <h1 className='font-medium text-white hidden md:block'>Docster</h1>
         </Link>
       </div>
       <SearchInput />
-      <div className='ms-6 flex items-center justify-center rounded-full w-[36px] h-[36px] bg-amber-500'>
+      <div className='flex items-center gap-2 ms-6'>
+        <OrganizationSwitcher
+          afterSelectPersonalUrl='/'
+          afterLeaveOrganizationUrl='/'
+          afterCreateOrganizationUrl='/'
+          afterSelectOrganizationUrl='/'
+        />
         <UserButton />
       </div>
     </nav>

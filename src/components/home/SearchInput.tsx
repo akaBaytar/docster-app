@@ -40,14 +40,14 @@ const SearchInput = () => {
           value={value}
           onChange={onChange}
           placeholder='Search...'
-          className='px-12 w-full h-[36px] border-none rounded-full text-sm bg-[#f0f4f8] md:text-base focus-visible:ring-0 focus:bg-white focus-visible:shadow-[0_1px_1px_0_rgba(65,69,73,.3),0_1px_3px_1px_rgba(65,69,73,.15)]'
+          className='px-10 w-full h-[36px] border-none rounded-full text-sm bg-[#f0f4f8] md:text-base focus-visible:ring-0 focus:bg-white focus-visible:shadow-[0_1px_1px_0_rgba(65,69,73,.3),0_1px_3px_1px_rgba(65,69,73,.15)]'
         />
         <Button
           type='submit'
           size='icon'
           variant='ghost'
           className='absolute left-1 top-1/2 p-2 transform -translate-y-1/2 rounded-full hover:bg-[#f0f4f8]'>
-          <SearchIcon />
+          <SearchIcon className='size-4'/>
         </Button>
         {value && (
           <Button
@@ -56,7 +56,7 @@ const SearchInput = () => {
             variant='destructive'
             onClick={onClear}
             className='absolute right-1 top-1/2 p-2 text-neutral-400 transform -translate-y-1/2 rounded-full hover:text-rose-500'>
-            <XIcon />
+            <XIcon className='size-4'/>
           </Button>
         )}
       </form>

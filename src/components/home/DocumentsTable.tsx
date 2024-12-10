@@ -83,18 +83,22 @@ const DocumentsTable = ({ documents, status, loadMore }: TableProps) => {
                   key={doc._id}
                   onClick={() => router.push(`/documents/${doc._id}`)}
                   className='cursor-pointer hover:bg-neutral-100 transition-colors duration-200'>
-                  <TableCell className='flex items-center gap-1'>
-                    <SiGoogledocs className='size-4 fill-amber-500' />
-                    {doc.title}
+                  <TableCell className='font-medium'>
+                    <div className='flex items-center gap-2'>
+                      <SiGoogledocs className='size-4 fill-amber-500' />
+                      {doc.title}
+                    </div>
                   </TableCell>
                   <TableCell></TableCell>
-                  <TableCell className='text-muted-foreground hidden md:flex items-center gap-1'>
-                    {doc.organizationId ? (
-                      <Building2Icon className='size-4' />
-                    ) : (
-                      <CircleUserIcon className='size-4' />
-                    )}
-                    {doc.organizationId ? 'Organization' : 'Personal'}
+                  <TableCell className='text-muted-foreground hidden md:table-cell'>
+                    <div className='flex items-center gap-2'>
+                      {doc.organizationId ? (
+                        <Building2Icon className='size-4' />
+                      ) : (
+                        <CircleUserIcon className='size-4' />
+                      )}
+                      {doc.organizationId ? 'Organization' : 'Personal'}
+                    </div>
                   </TableCell>
                   <TableCell className='text-muted-foreground hidden md:table-cell'>
                     {format(new Date(doc._creationTime), 'dd MMM yyyy')}
