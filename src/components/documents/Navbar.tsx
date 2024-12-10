@@ -3,6 +3,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { useEditorStore } from '@/store/useEditorStore';
+import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
+
 import { BsFilePdf } from 'react-icons/bs';
 
 import {
@@ -41,8 +44,6 @@ import {
 } from '@/ui/menubar';
 
 import DocumentInput from '@/components/documents/DocumentInput';
-
-import { useEditorStore } from '@/store/useEditorStore';
 
 const Navbar = () => {
   const { editor } = useEditorStore();
@@ -329,6 +330,15 @@ const Navbar = () => {
             </Menubar>
           </div>
         </div>
+      </div>
+      <div className='flex items-center gap-2 ms-6'>
+        <OrganizationSwitcher
+          afterSelectPersonalUrl='/'
+          afterLeaveOrganizationUrl='/'
+          afterCreateOrganizationUrl='/'
+          afterSelectOrganizationUrl='/'
+        />
+        <UserButton />
       </div>
     </nav>
   );
