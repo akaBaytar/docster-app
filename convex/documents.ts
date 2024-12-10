@@ -71,6 +71,14 @@ export const get = query({
   },
 });
 
+export const getById = query({
+  args: { id: v.id('documents') },
+
+  handler: async (ctx, { id }) => {
+    return await ctx.db.get(id);
+  },
+});
+
 export const update = mutation({
   args: {
     id: v.id('documents'),
@@ -89,7 +97,7 @@ export const update = mutation({
     if (!document) throw new ConvexError('Document not found.');
 
     const isOwner = document.ownerId === user.subject;
-    const isOrgMember = document.organizationId === org_id;
+    const isOrgMember = !!(document.organizationId && document.organizationId === org_id);
 
     if (!isOwner && !isOrgMember) throw new ConvexError('No authorization.');
 
@@ -114,7 +122,7 @@ export const remove = mutation({
     if (!document) throw new ConvexError('Document not found.');
 
     const isOwner = document.ownerId === user.subject;
-    const isOrgMember = document.organizationId === org_id;
+    const isOrgMember = !!( document.organizationId && document.organizationId === org_id);
 
     if (!isOwner && !isOrgMember) throw new ConvexError('No authorization.');
 
