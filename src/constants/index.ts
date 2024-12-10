@@ -1,3 +1,5 @@
+export const AVATAR_SIZE = 36;
+
 export const templates = [
   {
     id: 1,
