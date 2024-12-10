@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { toast } from 'sonner';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -55,7 +57,10 @@ const RemoveDialog = ({ id, children }: DialogProps) => {
             onClick={(e) => {
               e.stopPropagation();
               setIsRemoving(true);
-              removeDocument({ id }).finally(() => setIsRemoving(false));
+              removeDocument({ id })
+                .then(() => toast.success('Document removed successfully.'))
+                .catch(() => toast.error('An error occurred.'))
+                .finally(() => setIsRemoving(false));
             }}
             className='bg-black rounded-sm text-white h-9 mt-2'>
             Delete

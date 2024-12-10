@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { toast } from 'sonner';
+
 import {
   Dialog,
   DialogContent,
@@ -38,11 +40,14 @@ const RemoveDialog = ({ id, initialTitle, children }: DialogProps) => {
 
     setIsUpdating(true);
 
-    updateDocument({ id, title: title.trim() || 'Untitled' }).finally(() => {
-      setIsUpdating(false);
+    updateDocument({ id, title: title.trim() || 'Untitled' })
+      .then(() => toast.success('Document updated successfully.'))
+      .catch(() => toast.error('An error occurred.'))
+      .finally(() => {
+        setIsUpdating(false);
 
-      setOpen(false);
-    });
+        setOpen(false);
+      });
   };
 
   return (

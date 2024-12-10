@@ -1,6 +1,8 @@
 import { Poppins } from 'next/font/google';
 
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+
+import { Toaster } from '@/ui/sonner';
 import ConvexClientProvider from '@/providers/ConvexClientProvider';
 
 import '../styles/globals.css';
@@ -26,7 +28,10 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     <html lang='en'>
       <body className={`${poppins.className} antialiased`}>
         <NuqsAdapter>
-          <ConvexClientProvider>{children}</ConvexClientProvider>
+          <ConvexClientProvider>
+            <Toaster />
+            {children}
+          </ConvexClientProvider>
         </NuqsAdapter>
       </body>
     </html>

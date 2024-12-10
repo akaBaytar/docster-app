@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { toast } from 'sonner';
+
 import { useMutation } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
 
@@ -27,7 +29,11 @@ const TemplateGallery = () => {
     setIsCreating(true);
 
     create({ title, initialContent })
-      .then((id) => router.push(`/documents/${id}`))
+      .then((id) => {
+        router.push(`/documents/${id}`);
+        toast.success('Document created successfully.');
+      })
+      .catch(() => toast.error('An error occurred.'))
       .finally(() => setIsCreating(false));
   };
 
@@ -36,7 +42,7 @@ const TemplateGallery = () => {
       <div className='max-w-screen-lg mx-auto px-12 pt-16 pb-6 flex flex-col gap-4'>
         <Accordion type='single' collapsible>
           <AccordionItem value='documents'>
-            <AccordionTrigger >
+            <AccordionTrigger>
               <h3 className='text-lg'>Start a new document</h3>
             </AccordionTrigger>
             <AccordionContent className='-ms-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
