@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className='flex gap-3 items-center shrink-0 pe-6'>
         <Link
           href='/'
-          className='flex items-center gap-1 bg-amber-500 rounded-full px-2'>
+          className='flex items-center gap-1 bg-amber-500 rounded-full px-2 shadow'>
           <Image
             src='/logo.png'
             alt='Homepage - Docster Logo'
