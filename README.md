@@ -102,17 +102,20 @@ LIVEBLOCKS_SECRET_KEY=[YOUR_LIVEBLOCKS_SECRET_KEY]
 ### Installation
 
 1. **Clone the Repository**
+
    ```bash
    git clone https://github.com/akabaytar/docster-app.git
    cd docster-app
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Run the Development Server**
+
    ```bash
    npm run dev
    ```
@@ -130,11 +133,15 @@ Open [http://localhost:3000](http://localhost:3000) to view Docster in your brow
 
 1. Transition Convex and Liveblocks projects from the development environment to the production environment.
 2. Update the `.env` file with production keys.
-3. Overwrite install command with the legacy peer flag:
+3. Overwrite build command:
+   ```bash
+   npx convex deploy --cmd 'npm run build'
+   ```
+4. Overwrite install command with the legacy peer flag:
    ```bash
    npm install --legacy-peer-deps
    ```
-4. Deploy your application to Vercel.
+5. Deploy your application to Vercel.
 
 ---
 
