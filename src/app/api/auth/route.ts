@@ -5,7 +5,7 @@ import { auth, currentUser } from '@clerk/nextjs/server';
 import { api } from '../../../../convex/_generated/api';
 
 const liveblocks = new Liveblocks({
-  secret: process.env.LIVEBLOCKS_SECRET_KEY!,
+  secret: process.env.LIVEBLOCKS_DEV_KEY!,
 });
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
@@ -26,7 +26,9 @@ export const POST = async (req: Request) => {
   if (!document) return new Response('Not found.', { status: 404 });
 
   const isOwner = document.ownerId === user.id;
-  const isOrgMem = !!(document.organizationId && document.organizationId === sessionClaims.org_id);
+  const isOrgMem = !!(
+    document.organizationId && document.organizationId === sessionClaims.org_id
+  );
 
   if (!isOwner && !isOrgMem) {
     return new Response('Unauthorized.', { status: 401 });
