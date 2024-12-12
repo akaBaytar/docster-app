@@ -13,9 +13,10 @@ import {
 
 import Loader from './Loader';
 
-import { getUsers } from '@/actions';
+import { getDocuments, getUsers } from '@/actions';
 
 import type { User } from '@/types';
+import type { Id } from '../../../convex/_generated/dataModel';
 
 const Room = ({ children }: { children: React.ReactNode }) => {
   const params = useParams();
@@ -42,16 +43,31 @@ const Room = ({ children }: { children: React.ReactNode }) => {
   return (
     <LiveblocksProvider
       throttle={16}
-      authEndpoint='/api/auth'
-      resolveUsers={({ userIds }) => {
-        return userIds.map((userId) => users.find((user) => user.id === userId) ?? undefined);
+      authEndpoint={async () => {
+        const endpoint = '/api/auth';
+        const room = params.id as string;
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: JSON.stringify({ room }),
+        });
+        return await res.json();
       }}
-      resolveRoomsInfo={() => []}
+      resolveUsers={({ userIds }) => {
+        return userIds.map(
+          (userId) => users.find((user) => user.id === userId) ?? undefined
+        );
+      }}
+      resolveRoomsInfo={async ({ roomIds }) => {
+        const documents = await getDocuments(roomIds as Id<'documents'>[]);
+        return documents.map((doc) => ({ id: doc.id, name: doc.name }));
+      }}
       resolveMentionSuggestions={({ text }) => {
         let filteredUsers = users;
 
         if (text) {
-          filteredUsers = users.filter((user) => user.name.toLowerCase().includes(text.toLowerCase()));
+          filteredUsers = users.filter((user) =>
+            user.name.toLowerCase().includes(text.toLowerCase())
+          );
         }
 
         return filteredUsers.map((user) => user.id);

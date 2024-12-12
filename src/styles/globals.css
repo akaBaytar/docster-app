@@ -305,6 +305,15 @@ body {
   right: 12px;
 }
 
+.lb-inbox-notification-content{
+  font-size: 0.8rem;
+  line-height: 2;
+}
+
+div[data-radix-popper-content-wrapper]{
+  z-index: 50 !important;
+}
+
 @media (max-width: 640px) {
   .floating-threads {
     display: block;

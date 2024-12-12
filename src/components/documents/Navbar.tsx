@@ -43,6 +43,7 @@ import {
   MenubarSubTrigger,
 } from '@/ui/menubar';
 
+import Inbox from './Inbox';
 import Avatars from './Avatars';
 
 import DocumentInput from '@/components/documents/DocumentInput';
@@ -335,6 +336,7 @@ const Navbar = () => {
       </div>
       <div className='flex items-center gap-2 ms-6'>
         <Avatars />
+        <Inbox />
         <OrganizationSwitcher
           afterSelectPersonalUrl='/'
           afterLeaveOrganizationUrl='/'
