@@ -31,12 +31,16 @@ import Ruler from '@/components/documents/Ruler';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { useEditorStore } from '@/store/useEditorStore';
 
+import { useStorage } from '@liveblocks/react';
 import { useLiveblocksExtension } from '@liveblocks/react-tiptap';
 
 const Editor = () => {
   const { setEditor } = useEditorStore();
 
   const liveblocks = useLiveblocksExtension();
+
+  const leftMargin = useStorage((root) => root.leftMargin);
+  const rightMargin = useStorage((root) => root.rightMargin);
 
   const editor = useEditor({
     extensions: [
@@ -67,7 +71,7 @@ const Editor = () => {
 
     editorProps: {
       attributes: {
-        style: 'padding-inline-start: 56px; padding-inline-end: 56px;',
+        style: `padding-inline-start: ${leftMargin ?? 56}px; padding-inline-end: ${rightMargin ?? 56}px;`,
         class:
           'flex flex-col bg-white py-10 pe-14 cursor-text min-h-[1054px] w-[816px] border border-[#C7C7C7] rounded focus:outline-none print:border-0',
       },

@@ -72,7 +72,9 @@ const Room = ({ children }: { children: React.ReactNode }) => {
 
         return filteredUsers.map((user) => user.id);
       }}>
-      <RoomProvider id={params.id as string}>
+      <RoomProvider
+        id={params.id as string}
+        initialStorage={{ leftMargin: 56, rightMargin: 56 }}>
         <ClientSideSuspense fallback={<Loader />}>
           {children}
         </ClientSideSuspense>
