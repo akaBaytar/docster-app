@@ -28,16 +28,20 @@ import Highlight from '@tiptap/extension-highlight';
 import Threads from './Threads';
 import Ruler from '@/components/documents/Ruler';
 
-import { useEditor, EditorContent } from '@tiptap/react';
+import { MARGIN_RULER } from '@/constants';
 import { useEditorStore } from '@/store/useEditorStore';
 
 import { useStorage } from '@liveblocks/react';
+import { useEditor, EditorContent } from '@tiptap/react';
 import { useLiveblocksExtension } from '@liveblocks/react-tiptap';
 
-const Editor = () => {
+const Editor = ({ initialContent }: { initialContent?: string }) => {
   const { setEditor } = useEditorStore();
 
-  const liveblocks = useLiveblocksExtension();
+  const liveblocks = useLiveblocksExtension({
+    initialContent,
+    offlineSupport_experimental: true,
+  });
 
   const leftMargin = useStorage((root) => root.leftMargin);
   const rightMargin = useStorage((root) => root.rightMargin);
@@ -71,7 +75,7 @@ const Editor = () => {
 
     editorProps: {
       attributes: {
-        style: `padding-inline-start: ${leftMargin ?? 56}px; padding-inline-end: ${rightMargin ?? 56}px;`,
+        style: `padding-inline-start: ${leftMargin ?? MARGIN_RULER}px; padding-inline-end: ${rightMargin ?? MARGIN_RULER}px;`,
         class:
           'flex flex-col bg-white py-10 pe-14 cursor-text min-h-[1054px] w-[816px] border border-[#C7C7C7] rounded focus:outline-none print:border-0',
       },
@@ -109,6 +113,7 @@ const Editor = () => {
       setEditor(null);
     },
 
+    autofocus: true,
     immediatelyRender: false,
   });
 

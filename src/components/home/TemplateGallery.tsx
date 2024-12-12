@@ -57,7 +57,7 @@ const TemplateGallery = () => {
                     )}>
                     <button
                       disabled={isCreating}
-                      onClick={() => onClick(template.label, '')}
+                      onClick={() => onClick(template.label, template.initialContent)}
                       className='flex flex-col items-center justify-center gap-4 size-full rounded bg-white border hover:border-amber-500 hover:bg-amber-50 transition'
                       style={{
                         backgroundImage: `url(${template.imgUrl})`,

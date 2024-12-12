@@ -13,6 +13,7 @@ import {
 
 import Loader from './Loader';
 
+import { MARGIN_RULER } from '@/constants';
 import { getDocuments, getUsers } from '@/actions';
 
 import type { User } from '@/types';
@@ -74,7 +75,10 @@ const Room = ({ children }: { children: React.ReactNode }) => {
       }}>
       <RoomProvider
         id={params.id as string}
-        initialStorage={{ leftMargin: 56, rightMargin: 56 }}>
+        initialStorage={{
+          leftMargin: MARGIN_RULER,
+          rightMargin: MARGIN_RULER,
+        }}>
         <ClientSideSuspense fallback={<Loader />}>
           {children}
         </ClientSideSuspense>

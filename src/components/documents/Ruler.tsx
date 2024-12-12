@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react';
 
 import { FaCaretDown } from 'react-icons/fa6';
-
 import { useStorage, useMutation } from '@liveblocks/react';
+
+import { MARGIN_RULER } from '@/constants';
 
 type MarkerProps = {
   position: number;
@@ -15,8 +16,8 @@ type MarkerProps = {
 const markers = Array.from({ length: 83 }, (_, i) => i);
 
 const Ruler = () => {
-  const leftMargin = useStorage((root) => root.leftMargin) ?? 56;
-  const rightMargin = useStorage((root) => root.rightMargin) ?? 56;
+  const leftMargin = useStorage((root) => root.leftMargin) ?? MARGIN_RULER;
+  const rightMargin = useStorage((root) => root.rightMargin) ?? MARGIN_RULER;
 
   const setLeftMargin = useMutation(({ storage }, position: number) => {
     storage.set('leftMargin', position);
@@ -34,8 +35,8 @@ const Ruler = () => {
   const onLeftMouseDown = () => setIsDraggingLeft(true);
   const onRightMouseDown = () => setIsDraggingRight(true);
 
-  const onLeftDoubleClick = () => setLeftMargin(56);
-  const onRightDoubleClick = () => setRightMargin(56);
+  const onLeftDoubleClick = () => setLeftMargin(MARGIN_RULER);
+  const onRightDoubleClick = () => setRightMargin(MARGIN_RULER);
 
   const onMouseMove = (e: React.MouseEvent) => {
     if ((isDraggingLeft || isDraggingRight) && ruler.current) {
