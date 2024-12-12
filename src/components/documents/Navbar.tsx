@@ -48,7 +48,9 @@ import Avatars from './Avatars';
 
 import DocumentInput from '@/components/documents/DocumentInput';
 
-const Navbar = () => {
+import type { Doc } from '../../../convex/_generated/dataModel';
+
+const Navbar = ({ data }: { data: Doc<'documents'> }) => {
   const { editor } = useEditorStore();
 
   const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
@@ -77,7 +79,7 @@ const Navbar = () => {
       type: 'application/json',
     });
 
-    onDownload(blob, 'doc.json');
+    onDownload(blob, `${data.title}.json`);
   };
 
   const onSaveAsHTML = () => {
@@ -89,7 +91,7 @@ const Navbar = () => {
       type: 'text/html',
     });
 
-    onDownload(blob, 'doc.html');
+    onDownload(blob, `${data.title}.html`);
   };
 
   const onSaveAsText = () => {
@@ -101,17 +103,19 @@ const Navbar = () => {
       type: 'text/plain',
     });
 
-    onDownload(blob, 'doc.txt');
+    onDownload(blob, `${data.title}.txt`);
   };
 
   return (
     <nav className='flex items-center justify-between'>
       <div className='flex gap-2 items-center'>
         <Link href='/'>
-          <Image src='/logo.png' alt='Logo' width={36} height={36} />
+          <div className='w-9 h-9'>
+            <Image src='/logo.png' alt='Logo' width={36} height={36} />
+          </div>
         </Link>
         <div className='flex flex-col'>
-          <DocumentInput />
+          <DocumentInput id={data._id} title={data.title} />
           <div className='flex'>
             <Menubar className='border-none bg-transparent shadow-none h-auto p-0'>
               <MenubarMenu>
