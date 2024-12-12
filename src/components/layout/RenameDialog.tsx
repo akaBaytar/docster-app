@@ -28,7 +28,7 @@ type DialogProps = {
   children: React.ReactNode;
 };
 
-const RemoveDialog = ({ id, initialTitle, children }: DialogProps) => {
+const RenameDialog = ({ id, initialTitle, children }: DialogProps) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(initialTitle);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -97,4 +97,4 @@ const RemoveDialog = ({ id, initialTitle, children }: DialogProps) => {
   );
 };
 
-export default RemoveDialog;
+export default RenameDialog;

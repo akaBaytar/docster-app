@@ -2,11 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
+import { toast } from 'sonner';
+import { BsFilePdf } from 'react-icons/bs';
+import { useMutation } from 'convex/react';
+import { api } from '../../../convex/_generated/api';
 import { useEditorStore } from '@/store/useEditorStore';
 import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
-
-import { BsFilePdf } from 'react-icons/bs';
 
 import {
   FileIcon,
@@ -45,12 +48,16 @@ import {
 
 import Inbox from './Inbox';
 import Avatars from './Avatars';
+import RemoveDialog from '../layout/RemoveDialog';
+import RenameDialog from '../layout/RenameDialog';
 
 import DocumentInput from '@/components/documents/DocumentInput';
 
 import type { Doc } from '../../../convex/_generated/dataModel';
 
 const Navbar = ({ data }: { data: Doc<'documents'> }) => {
+  const router = useRouter();
+
   const { editor } = useEditorStore();
 
   const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
@@ -104,6 +111,17 @@ const Navbar = ({ data }: { data: Doc<'documents'> }) => {
     });
 
     onDownload(blob, `${data.title}.txt`);
+  };
+
+  const mutation = useMutation(api.documents.create);
+
+  const onNewDocument = () => {
+    mutation({ title: 'Untitled', initialContent: '' })
+      .then((id) => {
+        toast.success('Document created successfully.');
+        router.push(`/documents/${id}`);
+      })
+      .catch(() => toast.error('An error occurred.'));
   };
 
   return (
@@ -163,19 +181,31 @@ const Navbar = ({ data }: { data: Doc<'documents'> }) => {
                       </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
-                  <MenubarItem className='rounded hover:bg-neutral-100 py-1'>
+                  <MenubarItem
+                    onClick={onNewDocument}
+                    className='rounded hover:bg-neutral-100 py-1'>
                     <FilePlusIcon className='size-4 me-2' />
                     New Document
                   </MenubarItem>
                   <MenubarSeparator className='border-b border-neutral-100 my-1 h-0' />
-                  <MenubarItem className='rounded hover:bg-neutral-100 py-1'>
-                    <FilePenIcon className='size-4 me-2' />
-                    Rename
-                  </MenubarItem>
-                  <MenubarItem className='rounded hover:bg-neutral-100 py-1'>
-                    <TrashIcon className='size-4 me-2' />
-                    Remove
-                  </MenubarItem>
+                  <RenameDialog id={data._id} initialTitle={data.title}>
+                    <MenubarItem
+                      onSelect={(e) => e.preventDefault()}
+                      onClick={(e) => e.stopPropagation()}
+                      className='rounded hover:bg-neutral-100 py-1'>
+                      <FilePenIcon className='size-4 me-2' />
+                      Rename
+                    </MenubarItem>
+                  </RenameDialog>
+                  <RemoveDialog id={data._id}>
+                    <MenubarItem
+                      onSelect={(e) => e.preventDefault()}
+                      onClick={(e) => e.stopPropagation()}
+                      className='rounded hover:bg-neutral-100 py-1'>
+                      <TrashIcon className='size-4 me-2' />
+                      Remove
+                    </MenubarItem>
+                  </RemoveDialog>
                   <MenubarSeparator className='border-b border-neutral-100 my-1 h-0' />
                   <MenubarItem
                     onClick={() => window.print()}

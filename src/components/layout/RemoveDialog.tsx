@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { toast } from 'sonner';
 
@@ -29,7 +30,20 @@ type DialogProps = {
 const RemoveDialog = ({ id, children }: DialogProps) => {
   const [isRemoving, setIsRemoving] = useState(false);
 
+  const router = useRouter();
+
   const removeDocument = useMutation(api.documents.remove);
+
+  const onClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsRemoving(true);
+    removeDocument({ id })
+      .then(() => toast.success('Document removed successfully.'))
+      .catch(() => toast.error('An error occurred.'))
+      .finally(() => setIsRemoving(false));
+
+    router.push('/');
+  };
 
   return (
     <AlertDialog>
@@ -54,14 +68,7 @@ const RemoveDialog = ({ id, children }: DialogProps) => {
           </AlertDialogCancel>
           <AlertDialogAction
             disabled={isRemoving}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsRemoving(true);
-              removeDocument({ id })
-                .then(() => toast.success('Document removed successfully.'))
-                .catch(() => toast.error('An error occurred.'))
-                .finally(() => setIsRemoving(false));
-            }}
+            onClick={onClick}
             className='bg-black rounded-sm text-white h-9 mt-2'>
             Delete
           </AlertDialogAction>
